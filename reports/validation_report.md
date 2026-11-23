@@ -126,10 +126,10 @@ Thresholds declared before results: PSI/CSI amber 0.10, red 0.25; Gini drop ambe
 
 | 2015 | Score PSI | Max CSI | Gini | Mean PD | Observed DR | Underestimation | Status |
 |---|---|---|---|---|---|---|---|
-| Q1 | 0.017 | 0.051 | 0.328 | 13.31% | 14.83% | 11.4% | 🔴 calibration |
-| Q2 | 0.011 | 0.068 | 0.332 | 13.12% | 15.38% | 17.2% | 🔴 calibration |
-| Q3 | 0.005 | 0.072 | 0.346 | 12.74% | 14.58% | 14.5% | 🔴 calibration |
-| Q4 | 0.003 | 0.083 | 0.340 | 12.56% | 14.87% | 18.3% | 🔴 calibration |
+| Q1 | 0.017 | 0.051 | 0.328 | 13.31% | 14.83% | 11.4% | red (calibration) |
+| Q2 | 0.011 | 0.068 | 0.332 | 13.12% | 15.38% | 17.2% | red (calibration) |
+| Q3 | 0.005 | 0.072 | 0.346 | 12.74% | 14.58% | 14.5% | red (calibration) |
+| Q4 | 0.003 | 0.083 | 0.340 | 12.56% | 14.87% | 18.3% | red (calibration) |
 
 Stability and discrimination are green; calibration is red in all quarters. With the 2014 recalibration the underestimation falls to 6–12% (two quarters amber, two red). The SQL implementation reproduces the Python PSI and default rates to within 1e-17.
 
