@@ -1,0 +1,30 @@
+# Decision Log
+
+| # | Date | Decision | Alternatives considered | Reason |
+|---|---|---|---|---|
+| 1 | 2026-10-29 | Use Lending Club accepted loans 2007–2018Q4 (Kaggle `wordsforthewise/lending-club`, CC0). | Taiwan credit-card default (UCI), Freddie Mac loan-level, Home Credit. | Public, large, has issue dates so out-of-time validation and monitoring are possible. |
+| 2 | 2026-10-29 | Scope: 36-month loans issued 2012–2015. | Include 60-month loans; use all years. | Homogeneous product; 36-month outcomes are observable by the 2018Q4 data cut. |
+| 3 | 2026-10-29 | Samples: 2012–2013 development, 2014 out-of-time, 2015 monitoring (by quarter). | Random split over all years. | Mimics production: build on the past, validate and monitor on the future. |
+| 4 | 2026-10-29 | Bad = Charged Off, Default, Late (31-120 days); Good = Fully Paid; other statuses excluded and reported. | Treat Current as good. | Current/grace loans have no mature outcome; counting them as good would understate risk. |
+| 5 | 2026-10-29 | Horizon is lifetime (term) default, not 12-month PD. | Approximate a 12-month default date. | No default date in the data; stated as a limitation. |
+| 6 | 2026-10-29 | LC `grade`, `sub_grade`, `int_rate`, `installment` used only as a benchmark. | Use as features. | They are Lending Club's own risk assessment; using them would copy LC's model. |
+| 7 | 2026-10-29 | Exclude `zip_code`, `addr_state`, `emp_title`. | Use geography as a feature. | Potential proxies for protected characteristics. |
+| 8 | 2026-10-29 | Exclude all post-origination fields (payments, recoveries, last FICO, hardship, settlement). | — | Outcome leakage. |
+| 9 | 2026-10-29 | Development starts at 2012-Q4 instead of 2012-Q1 (2012-Q1..Q3 labelled `pre_development`). | Keep 2012 and give missing bureau fields their own bin. | ~25 bureau fields were not collected before 2012-Q3; a "missing" bin would capture the collection date, not borrower risk, and never occur in later data. |
+| 10 | 2026-10-29 | Exclude 14 fields introduced in 2015-Q4 (`open_acc_6m`, `il_util`, …). | — | 100% missing in development and OOT. |
+| 11 | 2026-10-29 | Exclude joint applications (239 loans, 2015 only). | Model them separately. | Different product/risk profile; too few to model. |
+| 12 | 2026-10-29 | Set income ≤ 0 (2 loans) and DTI outside 0–100 (5 loans) to missing; keep `revol_util` > 100%. | Drop rows; cap values. | Invalid entries vs plausible over-limit utilisation. |
+| 13 | 2026-10-29 | Treat missing `mths_since_*` as its own category. | Impute. | Missing means the event never happened, which is informative. |
+| 14 | 2026-10-30 | Derived features: employment length in years, credit history in months, loan-to-income, FICO midpoint (replaces low/high bounds). `home_ownership` NONE/ANY merged into OTHER (77 loans). | Use raw text fields; keep both FICO bounds. | Text fields cannot be binned numerically; FICO bounds differ by a constant, so one is redundant. |
+| 15 | 2026-10-30 | Development split 70/30 train/validation, stratified on the target, seed 42. | 5-fold cross-validation. | Simple and transparent; the real out-of-sample test is the 2014 OOT sample. |
+| 16 | 2026-10-30 | Binning: monotonic event-rate trend for numeric features, ≥ 5% of loans per bin, ≤ 8 bins. | Unconstrained bins. | Monotonic bins are explainable ("more X → more risk") and less prone to overfitting noise. |
+| 17 | 2026-10-30 | Selection: IV ≥ 0.02 → drop WoE correlation > 0.6 (keep higher IV) → top 15 by IV → backward elimination on wrong sign or p > 0.01. Result: 13 features. | Stepwise AIC; L1 regularisation. | Every step is a rule a reviewer can check by hand. |
+| 18 | 2026-10-30 | Scaling: 600 points at 50:1 good:bad odds, PDO 20. | Other anchors. | Common industry convention; anchor choice does not change ranking. |
+| 19 | 2026-10-30 | Risk grades: 8 equal-population PD bands fixed on the training sample, applied unchanged to later samples. | Grades refitted per sample; fixed regulatory-style master scale. | Grades must be frozen with the model, otherwise calibration drift is hidden. |
+| 20 | 2026-10-30 | Calibration tests: one-sided binomial and Jeffreys per grade and portfolio; Brier and Hosmer–Lemeshow as secondary. | Two-sided tests. | The material risk is PD *under*estimation; Jeffreys is the test used in ECB validation reporting. |
+| 21 | 2026-10-30 | Challengers: LightGBM on (a) the 13 scorecard features and (b) all 62 candidates; early stopping on validation; compared on OOT with the DeLong test. | One challenger only. | Separates the gain from the algorithm (+1.0 Gini) from the gain from extra information (+2.8). |
+| 22 | 2026-10-30 | Keep the scorecard as champion; propose an intercept recalibration (+0.065) to be tested on 2015; revisit excluded features in the next cycle. | Switch to LightGBM. | Ranking equals the LC benchmark and is stable; the problem is PD level, which recalibration addresses; transparency matters for credit decisions. |
+| 23 | 2026-11-23 | Monitoring thresholds declared before viewing 2015 results: PSI/CSI 0.10/0.25; Gini drop 5/10 points; calibration amber/red only when Jeffreys p < 0.05/0.01 **and** relative underestimation ≥ 5%/10%. | p-value-only calibration trigger. | With 60–90k loans per quarter a p-value alone flags immaterial differences. |
+| 24 | 2026-11-23 | Reference sample for PSI/CSI = development train; score PSI on train PD deciles, CSI on the scorecard's own bins. | Rolling reference (previous quarter). | A fixed reference detects cumulative drift since development. |
+| 25 | 2026-11-23 | EAD = funded amount × empirical EAD factor (0.57) and LGD = 0.89, both estimated on development defaults from outcome fields. | EAD = loan amount (planned). | Loan amount overstates exposure by ~43% because principal is repaid before default; outcome fields are allowed for loss estimation, not for PD inputs. |
+| 26 | 2026-11-23 | Cutoff analysis on 2015 loans with lifetime net return alongside loss rate. | Loss rate only. | Shows the trade-off between avoiding losses and giving up interest income. |

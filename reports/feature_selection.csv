@@ -1,0 +1,63 @@
+,iv,decision
+fico_mid,0.12598182521340784,selected
+annual_inc,0.10542117901772753,selected
+bc_open_to_buy,0.08381697193776226,selected
+tot_hi_cred_lim,0.08158515858718722,selected
+avg_cur_bal,0.07215276769675273,|corr| 0.86 with tot_hi_cred_lim
+total_bc_limit,0.06963110562208195,|corr| 0.79 with bc_open_to_buy
+tot_cur_bal,0.06519659079670657,|corr| 0.96 with tot_hi_cred_lim
+total_rev_hi_lim,0.05946792762679558,|corr| 0.70 with bc_open_to_buy
+dti,0.05169545229443308,selected
+mort_acc,0.048026309269479595,|corr| 0.65 with tot_hi_cred_lim
+loan_to_income,0.04624318071193273,selected
+acc_open_past_24mths,0.04170720827489595,selected
+percent_bc_gt_75,0.041007077466278824,selected
+num_tl_op_past_12m,0.039976223506310735,|corr| 0.70 with acc_open_past_24mths
+home_ownership,0.0380211708566017,|corr| 0.61 with tot_hi_cred_lim
+bc_util,0.03661150586496404,|corr| 0.72 with bc_open_to_buy
+mo_sin_rcnt_tl,0.03639456789885862,selected
+mo_sin_rcnt_rev_tl_op,0.03453691812824907,|corr| 0.72 with mo_sin_rcnt_tl
+mths_since_recent_inq,0.034187586809588735,selected
+mo_sin_old_rev_tl_op,0.03294641725126218,p-value 0.169 > 0.01
+mths_since_recent_bc,0.029856489038059132,selected
+mo_sin_old_il_acct,0.02908652153213993,selected
+revol_util,0.028595409184313515,|corr| 0.65 with percent_bc_gt_75
+inq_last_6mths,0.027667676402976762,|corr| 0.74 with mths_since_recent_inq
+purpose,0.026132754571678116,selected
+credit_history_months,0.02311391860200543,|corr| 0.87 with mo_sin_old_rev_tl_op
+num_actv_rev_tl,0.018971092958278354,IV 0.019 < 0.02
+num_rev_tl_bal_gt_0,0.018932282542768,IV 0.019 < 0.02
+revol_bal,0.01786332358607516,IV 0.018 < 0.02
+emp_length_years,0.017268897629288574,IV 0.017 < 0.02
+total_acc,0.015499957179072906,IV 0.015 < 0.02
+total_bal_ex_mort,0.01457959556834269,IV 0.015 < 0.02
+num_il_tl,0.013993399395465593,IV 0.014 < 0.02
+total_il_high_credit_limit,0.013615220228260975,IV 0.014 < 0.02
+num_bc_tl,0.004865591820017557,IV 0.005 < 0.02
+num_actv_bc_tl,0.004584817224916972,IV 0.005 < 0.02
+num_op_rev_tl,0.0027823699375074114,IV 0.003 < 0.02
+num_rev_accts,0.002626740585666587,IV 0.003 < 0.02
+verification_status,0.002608889773519521,IV 0.003 < 0.02
+pct_tl_nvr_dlq,0.0013993727843830007,IV 0.001 < 0.02
+mths_since_last_major_derog,0.0013714930649679,IV 0.001 < 0.02
+tot_coll_amt,0.0010675466607668182,IV 0.001 < 0.02
+mths_since_last_delinq,0.0008728579904949001,IV 0.001 < 0.02
+num_bc_sats,0.0006982540343462051,IV 0.001 < 0.02
+mths_since_recent_revol_delinq,0.0004967172181281371,IV 0.000 < 0.02
+mths_since_recent_bc_dlq,0.0003186341430773491,IV 0.000 < 0.02
+delinq_2yrs,0.00022224518223934727,IV 0.000 < 0.02
+mths_since_last_record,0.0001435054077824692,IV 0.000 < 0.02
+num_tl_120dpd_2m,0.00010778176446276841,IV 0.000 < 0.02
+pub_rec_bankruptcies,7.698602567573964e-05,IV 0.000 < 0.02
+open_acc,6.499053694721339e-05,IV 0.000 < 0.02
+num_sats,5.233609061629878e-05,IV 0.000 < 0.02
+num_accts_ever_120_pd,3.2147665040102275e-05,IV 0.000 < 0.02
+pub_rec,3.1378237335935915e-05,IV 0.000 < 0.02
+loan_amnt,3.103372650845269e-05,IV 0.000 < 0.02
+num_tl_30dpd,1.9897401031598262e-10,IV 0.000 < 0.02
+num_tl_90g_dpd_24m,1.9897401031598262e-10,IV 0.000 < 0.02
+delinq_amnt,0.0,IV 0.000 < 0.02
+acc_now_delinq,0.0,IV 0.000 < 0.02
+collections_12_mths_ex_med,0.0,IV 0.000 < 0.02
+chargeoff_within_12_mths,0.0,IV 0.000 < 0.02
+tax_liens,0.0,IV 0.000 < 0.02

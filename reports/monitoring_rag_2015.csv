@@ -1,0 +1,5 @@
+,score_psi,max_csi,max_csi_feature,stability,gini_drop,discrimination,underestimation_pct,calibration,overall
+2015-Q1,0.0169,0.0514,dti,green,-0.0017,green,11.45,red,red
+2015-Q2,0.0106,0.0682,acc_open_past_24mths,green,-0.0066,green,17.25,red,red
+2015-Q3,0.0047,0.0717,percent_bc_gt_75,green,-0.0198,green,14.49,red,red
+2015-Q4,0.0034,0.0825,percent_bc_gt_75,green,-0.0142,green,18.31,red,red

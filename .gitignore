@@ -1,0 +1,12 @@
+data/
+*.parquet
+*.zip
+*.csv.gz
+models/
+__pycache__/
+.ipynb_checkpoints/
+.pytest_cache/
+.venv/
+
+# Personal planning notes (kept local)
+PLAN.md
