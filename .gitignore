@@ -10,3 +10,5 @@ __pycache__/
 
 # Personal planning notes (kept local)
 PLAN.md
+reports/decision_log.md
+reports/html/

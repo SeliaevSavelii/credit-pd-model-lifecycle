@@ -164,4 +164,4 @@ Stability and discrimination are green; calibration is red in all quarters. With
 
 ## 10. Reproducibility
 
-`python run_all.py` runs 9 unit tests (`tests/test_validation.py`), re-extracts the data and executes notebooks 01–05 in order (≈ 2 minutes). A full rerun reproduces every table in `reports/` exactly. Key decisions and alternatives are recorded in [decision_log.md](decision_log.md).
+`python run_all.py` runs 9 unit tests (`tests/test_validation.py`), re-extracts the data and executes notebooks 01–05 in order (≈ 2 minutes). A full rerun reproduces every table in `reports/` exactly.

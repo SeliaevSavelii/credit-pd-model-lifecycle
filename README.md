@@ -6,7 +6,7 @@
 
 **Recommendation:** keep the scorecard for approval decisions (declining the riskiest 15% would have raised lifetime return from 6.35% to 6.90%), correct its loss estimates with a documented overlay now, and redevelop it on recent loans.
 
-➡️ One-page summary for non-technical readers: [reports/model_memo.md](reports/model_memo.md) · Technical details: [reports/validation_report.md](reports/validation_report.md) · All decisions and alternatives: [reports/decision_log.md](reports/decision_log.md)
+➡️ One-page summary for non-technical readers: [reports/model_memo.md](reports/model_memo.md) · Technical details: [reports/validation_report.md](reports/validation_report.md)
 
 ---
 
@@ -30,8 +30,6 @@
 | Monitoring | Quarterly PSI/CSI, back-testing, RAG thresholds set in advance, recalibration test, root-cause investigation, SQL cross-check | [04](notebooks/04_monitoring.ipynb) |
 | Business impact | Empirical LGD/EAD, expected vs realised loss, approval cutoffs, net return, champion–challenger swap set | [05](notebooks/05_business_impact.ipynb) |
 
-Rendered versions without running code: [reports/html](reports/html).
-
 ## Results at a glance
 
 | | Value |
@@ -50,7 +48,6 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 # Kaggle API token in ~/.kaggle/access_token (https://www.kaggle.com/settings/api)
 python run_all.py          # tests, download (~1.3 GB), extract, notebooks 01–05 (~2 min after download)
-python run_all.py --html   # additionally export reports/html
 ```
 
 A full rerun reproduces every table in `reports/` exactly.
@@ -64,7 +61,7 @@ A full rerun reproduces every table in `reports/` exactly.
 │                         validation statistics, monitoring/RAG, business impact
 ├── notebooks/            01–05, the analysis narrative
 ├── tests/                unit tests for Gini, KS, PSI, DeLong, binomial/Jeffreys, Hosmer–Lemeshow
-└── reports/              memo, validation report, decision log, result tables, figures, html
+└── reports/              memo, validation report, result tables, figures
 ```
 
 ## Limitations
